@@ -119,7 +119,8 @@ void loadListOfCities(FILE* inputFile, int popMin, ListOfCities* cities){
    @param cities is the ListOfCities data structure to save of disk.
    @requires cities != NULL
 */
-void saveListOfCities(ListOfCities* cities){
+void saveListOfCities(ListOfCities* cities)
+{
   FILE* outputFile = NULL;
   if( (outputFile = fopen("resuCities.dat", "w")) == NULL){
     perror("Could not open file resuCities.dat");

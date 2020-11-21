@@ -43,7 +43,6 @@ int **adjacency_matrix_creation(ListOfCities *cities){
 			matrix[i][j] = edge_valuation(cities->lat[i], cities->lat[j], cities->lon[i], cities->lon[j]);
 
 	return (matrix);
-
 }
 
 
@@ -57,6 +56,7 @@ void display_matrix (ListOfCities* cities, int** matrix)
 	{
 		printf("\n");
 		printf("%.5s \t", cities->name[i]);
+
 		for (int j = 0; j < cities->number; j++)
 			printf("%i \t", matrix[i][j]);
 	}

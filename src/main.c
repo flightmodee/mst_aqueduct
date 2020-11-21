@@ -10,16 +10,24 @@ int main(int argc, char ** argv)
 {
 	if( argc != 2 )
 	{
-		perror("Veuillez passer une population minimale en paramètre du programme");
+		perror("Veuillez passer une population minimale en paramètre du programme\n");
 		return EXIT_FAILURE;
 	}
-
 	
 	//-----------------------------------------------------------------
 	//--- READING cities
 	//-----------------------------------------------------------------
 
 	int popMin = atoi(argv[1]);
+
+/*
+	int popMin ;
+
+	fprintf(stderr,"\nVeuillez entrer un nombre d'habitants minimale\n");
+	fprintf(stderr,"\nExemple : 250000, 100000, 50000, 10000, 1000\nVotre choix : ");
+	scanf ("%d", &popMin);
+	fprintf(stderr, "\n");
+*/
 
 	ListOfCities* cities;
 	cities = citiesReader(popMin);
@@ -39,7 +47,7 @@ int main(int argc, char ** argv)
 	// Displaying the matrix
 	display_matrix (cities, matrix);
 
-	printf("\n%d", cities->number);
+	printf("\n%d\n\n", cities->number);
 	
 	/* 
 	Écriture du graphe (chaque ligne correspond à une arête)

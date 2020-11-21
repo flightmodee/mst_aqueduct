@@ -11,6 +11,15 @@
  */
 
 
+typedef struct graphe_s{
+    int nb_sommets ;
+    int nb_aretes ;
+    int total_distance ;
+    int* tab_rep ;
+} graphe_t;
+
+
+
 /** This function calculates the valuation of an edge. The latter represents the distance between two cities
  * whose latitudes are passed as arguments, and the valuation is calculated using the Haversine formula.
  * @param lat_a the latitude of the first city
@@ -32,12 +41,11 @@ int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b);
  * @return the adjacency matrix representing the complete weighted graph of all
  * cities passed as an argument.
  */
-
 int **adjacency_matrix_creation(ListOfCities *cities);
 
 
 /**
- * This function displays the matrix of distance between chosen cities.
+ * This function displays the matrix of distance between the chosen cities.
  * @param cities the cities which are going to be displayed
  */
 void display_matrix (ListOfCities* cities, int** matrix);
