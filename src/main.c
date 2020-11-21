@@ -5,7 +5,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-
+/*
+gcc -o graphe main.c citiesReader.c adjacency_matrix.c -lm
+./graphe 250000
+*/
 void saveGraph(ListOfCities * cities){
   FILE* fileOut = NULL;
   fileOut = fopen("resuGraph.dat", "w");
@@ -25,7 +28,6 @@ void saveGraph_alt(int **matrix){
 
 	for (int i = 0; i < 
 
-
 }
 */
 
@@ -39,25 +41,31 @@ int main(int argc, char ** argv) {
 //--- READING cities
 //-----------------------------------------------------------------
 
-  int popMin = atoi(argv[1]);
-  
-  ListOfCities* cities;
-  cities = citiesReader(popMin);
+	int popMin = atoi(argv[1]);
 
-  // ... just to check! This line can be removed.
-  for(int i=0; i<cities->number; i++){
-    printf("%s %i %f %f\n", cities->name[i], cities->pop[i], cities->lon[i], cities->lat[i]);
-  }
+	ListOfCities* cities;
+	cities = citiesReader(popMin);
 
-  int **matrix = adjacency_matrix_creation(cities);
+	// ... just to check! This line can be removed.
+	for(int i=0; i<cities->number; i++){
+		printf("%s %i %f %f\n", cities->name[i], cities->pop[i], cities->lon[i], cities->lat[i]);
+	}
 
+	int **matrix = adjacency_matrix_creation(cities);
 
-  for (int i = 0; i < cities->number; i++){
-	printf("\n");
-	for (int j = 0; j < cities->number; j++)
-		printf("%i \t", matrix[i][j]);
-}
+	// Displaying the matrix
+	printf("\n\t") ;
+	for (int x = 0 ; x < cities->number; x++)
+		printf("%.5s \t", cities->name[x]);
 
+	for (int i = 0; i < cities->number; i++)
+	{
+		printf("\n");
+		printf("%.5s \t", cities->name[i]);
+		for (int j = 0; j < cities->number; j++)
+			printf("%i \t", matrix[i][j]);
+	}
+	printf("\n\n") ;
 //-----------------------------------------------------------------
 //--- COMPUTING complete graph
 //-----------------------------------------------------------------

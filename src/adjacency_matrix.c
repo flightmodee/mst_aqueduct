@@ -4,11 +4,18 @@
 #include "citiesReader.h"
 #include "adjacency_matrix.h"
 
+#define M_PI 3.14159265358979323846
+
+
 int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b){
 
-	int R = 6371, valuation;
-	valuation = R*acos(sin(lat_a)*sin(lat_b) + cos(lon_b - lon_a)*cos(lat_a)*cos(lat_b));
-	return(valuation);
+	float pi, a, valuation ;
+
+    pi = M_PI/180 ;
+    a = 0.5 - cos((lat_b - lat_a)*pi)/2 + cos(lat_a*pi) * cos(lat_b*pi) * (1 - cos((lon_b - lon_a)*pi))/2 ;
+	valuation = 12742 * asin(sqrt(a)) ;
+
+    return valuation ;
 }
 
 
@@ -30,9 +37,7 @@ int **adjacency_matrix_creation(ListOfCities *cities){
 			exit(EXIT_FAILURE);
 		}
 	
-
 	//Now, we'll fill our matrix.
-
 	for (i = 0; i < cities->number; i++)
 		for (j = 0; j < cities->number; j++)
 			matrix[i][j] = edge_valuation(cities->lat[i], cities->lat[j], cities->lon[i], cities->lon[j]);
