@@ -32,7 +32,6 @@ int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b);
  * @return the adjacency matrix representing the complete weighted graph of all
  * cities passed as an argument.
  */
-
 int **adjacency_matrix_creation(ListOfCities *cities);
 
 
