@@ -1,36 +1,11 @@
 #include "citiesReader.h"
-#include "adjacency_matrix.h"
+#include "graph.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-/*
-gcc -o graphe main.c citiesReader.c adjacency_matrix.c -lm
-./graphe 250000
-*/
-void saveGraph(ListOfCities * cities)
-{
-	FILE* fileOut = NULL;
-	fileOut = fopen("resuGraph.dat", "w");
-	
-	for(int i=0; i<cities->number; i++)
-		for(int j=0; j<i; j++)
-			fprintf(fileOut, "%i %i\n", i, j);
 
-	fclose(fileOut);
-}
-
-/*
-void saveGraph_alt(int **matrix){
-
-FILE *fileout = NULL;
-fileout = fopen("resuGraph.dat", "w");
-
-for (int i = 0; i < 
-
-}
-*/
 
 int main(int argc, char ** argv)
 {
@@ -71,7 +46,7 @@ int main(int argc, char ** argv)
 	Dans votre rendu, cette fonction prendra un graphe en argument,
 	pas une liste de villes.
 	*/
-	saveGraph(cities);
+	saveGraph_alt(matrix, cities->number);
 
 	freeListOfCities(cities);
 
