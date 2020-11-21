@@ -6,7 +6,6 @@
 #include <string.h>
 #include <unistd.h>
 
-
 int main(int argc, char ** argv)
 {
 	if( argc != 2 )
@@ -30,16 +29,18 @@ int main(int argc, char ** argv)
 		printf("%s %i %f %f\n", cities->name[i], cities->pop[i], cities->lon[i], cities->lat[i]);
 	
 
-	int **matrix = adjacency_matrix_creation(cities);
-
-	// Displaying the matrix
-	display_matrix (cities, matrix) ;
 
 	//-----------------------------------------------------------------
 	//--- COMPUTING complete graph
 	//-----------------------------------------------------------------
 
+	int **matrix = adjacency_matrix_creation(cities);
 
+	// Displaying the matrix
+	display_matrix (cities, matrix);
+
+	printf("\n%d", cities->number);
+	
 	/* 
 	Écriture du graphe (chaque ligne correspond à une arête)
 	!!! Ci-dessous, on écrit le graphe complet pour l'exemple.
@@ -47,7 +48,6 @@ int main(int argc, char ** argv)
 	pas une liste de villes.
 	*/
 	saveGraph_alt(matrix, cities->number);
-
 	freeListOfCities(cities);
 
 	return 0;
