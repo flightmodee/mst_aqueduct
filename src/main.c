@@ -48,7 +48,6 @@ int main(int argc, char ** argv)
 	// Displaying the matrix
 	display_matrix (cities, matrix);
 
-	printf("\n%d\n\n", cities->number);
 
 
 	/* 
