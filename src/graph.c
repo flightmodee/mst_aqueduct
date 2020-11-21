@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "citiesReader.h"
-#include "adjacency_matrix.h"
+#include "graph.h"
 
 #define M_PI 3.14159265358979323846
 
@@ -61,4 +61,30 @@ void display_matrix (ListOfCities* cities, int** matrix)
 			printf("%i \t", matrix[i][j]);
 	}
 	printf("\n\n") ;
+}
+
+void saveGraph(ListOfCities * cities){
+  FILE* fileOut = NULL;
+  fileOut = fopen("resuGraph.dat", "w");
+  for(int i=0; i<cities->number; i++){
+    for(int j=0; j<i; j++){
+      fprintf(fileOut, "%i %i\n", i, j);
+    }
+  }
+  fclose(fileOut);
+}
+
+
+void saveGraph_alt(int **matrix, int dimension){
+
+	FILE *fileOut = NULL;
+	fileOut = fopen("resuGraph.dat", "w");
+
+	for (int i = 0; i < dimension; i++)
+		for (int j = 0; j < dimension; j++)
+			if (matrix[i][j] != 0)
+				fprintf(fileOut, "%i %i\n", i, j);
+
+	fclose(fileOut);
+
 }

@@ -12,11 +12,11 @@
 
 
 /** This function calculates the valuation of an edge. The latter represents the distance between two cities
- * whose latitudes are passed as arguments, and the valuation is calculated using the following formula:
- * valuation = R*(acos(sin(lat_a)*sin(lat_b) + cos(lat_a - lat_b)*cos(lat_a)*cos(lat_b))), with R
- * approximately equal to 6371 km.
+ * whose latitudes are passed as arguments, and the valuation is calculated using the Haversine formula.
  * @param lat_a the latitude of the first city
  * @param lat_b the latitude of the second city
+ * @param lon_a the longitude of the first city
+ * @param lon_b the longitude of the second city
  * @return the distance between those two cities
  */
 int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b);
@@ -32,13 +32,16 @@ int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b);
  * @return the adjacency matrix representing the complete weighted graph of all
  * cities passed as an argument.
  */
+
 int **adjacency_matrix_creation(ListOfCities *cities);
 
 
 /**
  * This function displays the matrix of distance between chosen cities.
- * @param cities The cities which are going to be displayed
+ * @param cities the cities which are going to be displayed
  */
-void display_matrix (ListOfCities* cities, int** matrix) ;
+void display_matrix (ListOfCities* cities, int** matrix);
+
+void saveGraph_alt(int **matrix, int dimension);
 
 #endif
