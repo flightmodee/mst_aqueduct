@@ -11,24 +11,17 @@
  */
 
 
-typedef struct graphe_s{
-    int nb_sommets ;
-    int nb_aretes ;
-    int total_distance ;
-    int* tab_rep ;
-} graphe_t;
-
 
 
 /** This function calculates the valuation of an edge. The latter represents the distance between two cities
  * whose latitudes are passed as arguments, and the valuation is calculated using the Haversine formula.
- * @param lat_a the latitude of the first city
- * @param lat_b the latitude of the second city
- * @param lon_a the longitude of the first city
- * @param lon_b the longitude of the second city
+ * @param cities the chosen cities
+ * @param pos1 the position of a city
+ * @param pos2 the position of a city
  * @return the distance between those two cities
  */
-int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b);
+int edge_valuation(ListOfCities *cities, int pos1, int pos2);
+
 
 /**This function will create an adjacency matrix (which will 
  * represent our graph) with the data contained within the argument.
@@ -44,8 +37,7 @@ int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b);
 int **adjacency_matrix_creation(ListOfCities *cities);
 
 
-/**
- * This function displays the matrix of distance between the chosen cities.
+/**This function displays the matrix of distance between the chosen cities.
  * @param cities the cities which are going to be displayed
  */
 void display_matrix (ListOfCities* cities, int** matrix);
@@ -56,8 +48,14 @@ void display_matrix (ListOfCities* cities, int** matrix);
  * We also need the dimension of the squared matrix to print everything
  * correctly.
  * @param matrix the matrix representing our graph.
- * @dimension the dimension of our matrix.
+ * @param dimension the dimension of our matrix.
  */
 void saveGraph_alt(int **matrix, int dimension);
+
+
+/** ...
+ * @param matrix ... 
+ */
+int prim(int** matrix, int dimension) ;
 
 #endif

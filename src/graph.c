@@ -3,13 +3,17 @@
 #include <math.h>
 #include "citiesReader.h"
 #include "graph.h"
+#include "tas.h"
 
 #define M_PI 3.14159265358979323846
 
 
-int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b){
-
+int edge_valuation(ListOfCities *cities, int pos1, int pos2)
+{
 	float pi, a, valuation ;
+
+	float lat_a = cities->lat[pos1], lon_a = cities->lon[pos1] ;
+	float lat_b = cities->lat[pos2], lon_b = cities->lon[pos2] ;
 
 	pi = M_PI/180 ;
 	a = 0.5 - cos((lat_b - lat_a)*pi)/2 + cos(lat_a*pi) * cos(lat_b*pi) * (1 - cos((lon_b - lon_a)*pi))/2 ;
@@ -40,7 +44,7 @@ int **adjacency_matrix_creation(ListOfCities *cities){
 	//Now, we'll fill our matrix.
 	for (i = 0; i < cities->number; i++)
 		for (j = 0; j < cities->number; j++)
-			matrix[i][j] = edge_valuation(cities->lat[i], cities->lat[j], cities->lon[i], cities->lon[j]);
+			matrix[i][j] = edge_valuation(cities, i, j) ;
 
 	return (matrix);
 }
@@ -77,3 +81,19 @@ void saveGraph_alt(int **matrix, int dimension){
 	fclose(fileOut);
 
 }
+
+/*
+int prim(int** matrix, int dimension)
+{
+	int first_node = 0 ;
+	int* rep[dimension] = {0} ;
+	tas_t* pq ;
+
+	if ()
+	{
+
+	}
+
+	return first_node ;
+}
+*/

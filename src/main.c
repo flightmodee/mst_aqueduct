@@ -1,5 +1,6 @@
 #include "citiesReader.h"
 #include "graph.h"
+#include "tas.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -48,7 +49,8 @@ int main(int argc, char ** argv)
 	display_matrix (cities, matrix);
 
 	printf("\n%d\n\n", cities->number);
-	
+
+
 	/* 
 	Écriture du graphe (chaque ligne correspond à une arête)
 	!!! Ci-dessous, on écrit le graphe complet pour l'exemple.
