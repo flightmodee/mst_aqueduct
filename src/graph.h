@@ -42,6 +42,14 @@ int **adjacency_matrix_creation(ListOfCities *cities);
  */
 void display_matrix (ListOfCities* cities, int** matrix);
 
+
+/**This functions writes in a file each pair of vertixes which form an edge in our graph 
+ * described by the matrix passed as argument.
+ * We also need the dimension of the squared matrix to print everything
+ * correctly.
+ * @param matrix the matrix representing our graph.
+ * @dimension the dimension of our matrix.
+ */
 void saveGraph_alt(int **matrix, int dimension);
 
 #endif
