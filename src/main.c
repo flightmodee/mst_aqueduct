@@ -54,18 +54,8 @@ int main(int argc, char ** argv) {
 	int **matrix = adjacency_matrix_creation(cities);
 
 	// Displaying the matrix
-	printf("\n\t") ;
-	for (int x = 0 ; x < cities->number; x++)
-		printf("%.5s \t", cities->name[x]);
+	display_matrix (cities, matrix) ;
 
-	for (int i = 0; i < cities->number; i++)
-	{
-		printf("\n");
-		printf("%.5s \t", cities->name[i]);
-		for (int j = 0; j < cities->number; j++)
-			printf("%i \t", matrix[i][j]);
-	}
-	printf("\n\n") ;
 //-----------------------------------------------------------------
 //--- COMPUTING complete graph
 //-----------------------------------------------------------------

@@ -36,6 +36,10 @@ int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b);
 int **adjacency_matrix_creation(ListOfCities *cities);
 
 
-
+/**
+ * This function displays the matrix of distance between chosen cities.
+ * @param cities The cities which are going to be displayed
+ */
+void display_matrix (ListOfCities* cities, int** matrix) ;
 
 #endif

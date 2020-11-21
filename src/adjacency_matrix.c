@@ -11,11 +11,11 @@ int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b){
 
 	float pi, a, valuation ;
 
-    pi = M_PI/180 ;
-    a = 0.5 - cos((lat_b - lat_a)*pi)/2 + cos(lat_a*pi) * cos(lat_b*pi) * (1 - cos((lon_b - lon_a)*pi))/2 ;
+	pi = M_PI/180 ;
+	a = 0.5 - cos((lat_b - lat_a)*pi)/2 + cos(lat_a*pi) * cos(lat_b*pi) * (1 - cos((lon_b - lon_a)*pi))/2 ;
 	valuation = 12742 * asin(sqrt(a)) ;
 
-    return valuation ;
+	return valuation ;
 }
 
 
@@ -44,4 +44,21 @@ int **adjacency_matrix_creation(ListOfCities *cities){
 
 	return (matrix);
 
+}
+
+
+void display_matrix (ListOfCities* cities, int** matrix)
+{
+	printf("\n\t") ;
+	for (int x = 0 ; x < cities->number; x++)
+		printf("%.5s \t", cities->name[x]);
+
+	for (int i = 0; i < cities->number; i++)
+	{
+		printf("\n");
+		printf("%.5s \t", cities->name[i]);
+		for (int j = 0; j < cities->number; j++)
+			printf("%i \t", matrix[i][j]);
+	}
+	printf("\n\n") ;
 }
