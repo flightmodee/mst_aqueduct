@@ -2,6 +2,7 @@
 #define __ADJACENCY_MATRIX__
 
 #include <stddef.h>
+#include <math.h>
 
 /**Cette librairie contiendra les prototypes des fonctions en rapport avec les matrices d'adjacence.
  * Il ne s'agira ni plus ni moins que d'une matrice n * n, avec n le nombre de sommets d'un graphe.
@@ -18,7 +19,7 @@
  * @param lat_b the latitude of the second city
  * @return the distance between those two cities
  */
-int edge_valuation(double lat_a, double lat_b);
+int edge_valuation(float lat_a, float lat_b, float lon_a, float lon_b);
 
 /**This function will create an adjacency matrix (which will 
  * represent our graph) with the data contained within the argument.

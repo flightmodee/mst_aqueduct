@@ -1,8 +1,10 @@
 #include "citiesReader.h"
+#include "adjacency_matrix.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 void saveGraph(ListOfCities * cities){
   FILE* fileOut = NULL;
@@ -15,6 +17,17 @@ void saveGraph(ListOfCities * cities){
   fclose(fileOut);
 }
 
+/*
+void saveGraph_alt(int **matrix){
+
+	FILE *fileout = NULL;
+	fileout = fopen("resuGraph.dat", "w");
+
+	for (int i = 0; i < 
+
+
+}
+*/
 
 int main(int argc, char ** argv) {
 
@@ -35,6 +48,15 @@ int main(int argc, char ** argv) {
   for(int i=0; i<cities->number; i++){
     printf("%s %i %f %f\n", cities->name[i], cities->pop[i], cities->lon[i], cities->lat[i]);
   }
+
+  int **matrix = adjacency_matrix_creation(cities);
+
+
+  for (int i = 0; i < cities->number; i++){
+	printf("\n");
+	for (int j = 0; j < cities->number; j++)
+		printf("%i \t", matrix[i][j]);
+}
 
 //-----------------------------------------------------------------
 //--- COMPUTING complete graph
