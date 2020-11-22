@@ -1,4 +1,4 @@
-#include "tas.h"
+#include "heap.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
@@ -24,9 +24,9 @@ edge_t* edge_create(int n1, int n2, int poids)
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-tas_t* tas_create(int max)
+heap_t* heap_create(int max)
 {
-  tas_t* res = (tas_t*) malloc( sizeof(tas_t) );
+  heap_t* res = (heap_t*) malloc( sizeof(heap_t) );
 
   res->tab = (edge_t*) malloc( sizeof(edge_t) * max );
   res->max = max;
@@ -39,7 +39,7 @@ tas_t* tas_create(int max)
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-void inserer_tas (tas_t *T, edge_t x)
+void inserer_heap (heap_t *T, edge_t x)
 {
   if (T==NULL) {
       printf("Tas non valide !\n\n") ;
@@ -61,10 +61,10 @@ void inserer_tas (tas_t *T, edge_t x)
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-void echanger(tas_t * tas, int pos1, int pos2){
-    edge_t tmp = tas->tab[pos2];
-    tas->tab[pos2] = tas->tab[pos1];
-    tas->tab[pos1] = tmp;
+void echanger(heap_t * T, int pos1, int pos2){
+    edge_t tmp = T->tab[pos2];
+    T->tab[pos2] = T->tab[pos1];
+    T->tab[pos1] = tmp;
 }
 
 
@@ -79,11 +79,11 @@ int parent (int pos){
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-void entasser(tas_t * tas, int pos)
+void entasser(heap_t * T, int pos)
 {
-    while (tas->tab[parent(pos)].weight < tas->tab[pos].weight && pos > 0)
+    while (T->tab[pos].weight < T->tab[parent(pos)].weight && pos > 0)
     {
-        echanger(tas, parent(pos),pos);
+        echanger(T, pos, parent(pos));
         pos = parent(pos);
     }
 }
@@ -92,7 +92,7 @@ void entasser(tas_t * tas, int pos)
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-void destroy_tas(tas_t * a)
+void destroy_heap(heap_t * a)
 {
   if( a != NULL ){
     if( a->tab != NULL )
@@ -105,34 +105,34 @@ void destroy_tas(tas_t * a)
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-int plus_grands_fils(tas_t * tas, int pos)
+int plus_grands_fils(heap_t * T, int pos)
 {
   int fils_g = 2*pos+1;
   int fils_d = 2*pos+2;
 
-  if( fils_g >= tas->taille )
-    return tas->max;
+  if( fils_g >= T->taille )
+    return T->max;
 
-  if (tas->tab[fils_g].weight < tas->tab[fils_d].weight)
+  if (T->tab[fils_g].weight < T->tab[fils_d].weight)
     return fils_d;
 
   return fils_g;
 }
 
 
-void entasser_ext(tas_t * tas)
+void entasser_ext(heap_t * T)
 {
-	if(tas->taille <= 1)
+	if(T->taille <= 1)
     return ;
 
   int pos =0;
-  int fils = plus_grands_fils(tas, pos);
+  int fils = plus_grands_fils(T, pos);
 
-  while (tas->tab[pos].weight < tas->tab[fils].weight && fils < tas->taille-1)
+  while (T->tab[pos].weight < T->tab[fils].weight && fils < T->taille-1)
   {
-    echanger(tas, pos,fils);
+    echanger(T, pos,fils);
     pos = fils; 
-    fils = plus_grands_fils(tas, pos);
+    fils = plus_grands_fils(T, pos);
   }
 }
 
@@ -140,7 +140,7 @@ void entasser_ext(tas_t * tas)
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-edge_t extraire_grande_prio(tas_t * T)
+edge_t extraire_grande_prio(heap_t * T)
 {
   if (T == NULL || T->taille <= 1)
   {
@@ -152,6 +152,7 @@ edge_t extraire_grande_prio(tas_t * T)
     edge_t edge_min = T->tab[0] ;
 
     T->taille-- ;
+
     echanger(T, 0, T->taille) ;
     entasser_ext(T) ;
 

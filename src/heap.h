@@ -1,5 +1,5 @@
-#ifndef __TAS_H__
-#define __TAS_H__
+#ifndef __HEAP_H__
+#define __HEAP_H__
 
 #include <stddef.h>
 
@@ -15,7 +15,7 @@ typedef struct edge_s
 /**
    Structure utilisée pour faire des Tas pour les files de prioritées
 */
-typedef struct tas_s
+typedef struct heap_s
 {
   // Tableau pour le tas.
   edge_t* tab;
@@ -25,7 +25,7 @@ typedef struct tas_s
 
   // Taille du tableau actuellement occupé.
   int taille;
-} tas_t;
+} heap_t;
 
 
 /**
@@ -44,7 +44,7 @@ edge_t* edge_create(int n1, int n2, int poids);
    @param max est la taille max du tableau.
    @return Un pointeur sur une structure analyzer_t nouvellement allouée.
  */
-tas_t * tas_create(int max);
+heap_t * heap_create(int max);
 
 
 /**
@@ -61,56 +61,56 @@ int parent (int pos);
  *  @param x entier x à insérer
  *  @return une valeur dépendant s'il l'action a réussie ou non
  */
-void inserer_tas (tas_t *T, edge_t x);
+void inserer_heap (heap_t *T, edge_t x);
 
 
 /**
    Fonction qui echange l'emplacement de deux élement du tableau d'un tas
-   @param tas le tas que l'on va modifier
+   @param T le tas que l'on va modifier
    @param pos1 la position du premier element a échanger
    @param pos2 la position du deuxieme element a modifier
  */
-void echanger(tas_t * tas, int pos1, int pos2);
+void echanger(heap_t * T, int pos1, int pos2);
 
 
 /**
    Fonction met un element a sa place dans le tas_max
-   @param tas le tas que l'on va modifier
+   @param T le tas que l'on va modifier
    @param pos la position de l'element que l'on va remonter
  */
-void entasser(tas_t* tas, int pos);
+void entasser(heap_t* T, int pos);
 
 
 /**
  *  Fonction libérant la mémoire occupée par le tas
  * @param a le tableau que l'on va désallouer
  */
-void destroy_tas(tas_t * a);
+void destroy_heap (heap_t * a);
 
 
 /**
  *  Fonction qui swap le premier et dernie element, puis retire le dernier et va ensuite entasser le tas
- * @param a le tas
+ * @param T le tas
  * @return le nombre d'échanges effectués pour entasser le tas
  */
-edge_t extraire_grande_prio(tas_t * T) ;
+edge_t extraire_grande_prio(heap_t * T) ;
 
 
 /**
  * Fonction qui entasse le tas
- * @param tas le tas
+ * @param T le tas
  * @return le nombre d'échanges effectués pour entasser le tas
  */
-void entasser_ext(tas_t * tas);
+void entasser_ext(heap_t * T);
 
 
 /**
  * Fonction qui renvoie la position du plus grand fils
- * @param tas le tas
+ * @param T le tas
  * @param pos la position du noeud
  * @return la position du plus grand fils
  */
-int plus_grands_fils(tas_t * tas, int pos);
+int plus_grands_fils(heap_t * T, int pos);
 
 
 #endif
