@@ -49,6 +49,21 @@ int main(int argc, char ** argv)
 	display_matrix (cities, matrix);
 
 
+//	TEST new tas
+
+	tas_t* T = tas_create(8) ;
+	edge_t* N = edge_create(1, 2, 35) ;
+	edge_t* N1 = edge_create(1, 2, 5) ;
+	edge_t* N2 = edge_create(1, 2, 1) ;
+	inserer_tas(T, *N) ;
+	inserer_tas(T, *N1) ;
+	inserer_tas(T, *N2) ;
+
+	printf("Poids du premier : %d\n\n", T->tab[0].weight) ;
+	printf("Poids du second : %d\n\n", T->tab[1].weight) ;
+	printf("Poids du second : %d\n\n", T->tab[2].weight) ;
+
+
 
 	/* 
 	Écriture du graphe (chaque ligne correspond à une arête)

@@ -3,17 +3,39 @@
 
 #include <stddef.h>
 
+
+typedef struct edge_s
+{
+  int vertix1 ;
+  int vertix2 ;
+  int weight ;
+} edge_t ;
+
+
 /**
    Structure utilisée pour faire des Tas pour les files de prioritées
 */
-typedef struct tas_s{
+typedef struct tas_s
+{
   // Tableau pour le tas.
-  int * tab;
+  edge_t* tab;
+
   // Taille max du tableau.
   int max;
+
   // Taille du tableau actuellement occupé.
   int taille;
 } tas_t;
+
+
+/**
+   Fonction d'initialisation d'une arête.
+   @param n1 Le sommet départ.
+   @param n2 Le sommet arrivé.
+   @param poids Le poids du trajet.
+   @return Un pointer vers une arête paramétré.
+ */
+edge_t* edge_create(int n1, int n2, int poids);
 
 
 /**
@@ -39,7 +61,7 @@ int parent (int pos);
  *  @param x entier x à insérer
  *  @return une valeur dépendant s'il l'action a réussie ou non
  */
-int inserer_tas (tas_t *T, int x);
+void inserer_tas (tas_t *T, edge_t x);
 
 
 /**
@@ -56,7 +78,7 @@ void echanger(tas_t * tas, int pos1, int pos2);
    @param tas le tas que l'on va modifier
    @param pos la position de l'element que l'on va remonter
  */
-int entasser(tas_t * tas, int pos);
+void entasser(tas_t* tas, int pos);
 
 
 /**
@@ -71,7 +93,7 @@ void destroy_tas(tas_t * a);
  * @param a le tas
  * @return le nombre d'échanges effectués pour entasser le tas
  */
-int extraire_grande_prio(tas_t * a);
+edge_t extraire_grande_prio(tas_t * T) ;
 
 
 /**
@@ -79,7 +101,7 @@ int extraire_grande_prio(tas_t * a);
  * @param tas le tas
  * @return le nombre d'échanges effectués pour entasser le tas
  */
-int entasser_ext(tas_t * tas);
+void entasser_ext(tas_t * tas);
 
 
 /**
