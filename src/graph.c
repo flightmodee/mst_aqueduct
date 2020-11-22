@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include "citiesReader.h"
 #include "graph.h"
 #include "tas.h"
@@ -60,6 +61,16 @@ void display_matrix (ListOfCities* cities, int** matrix)
 	{
 		printf("\n");
 		printf("%.5s \t", cities->name[i]);
+		
+		if (i>0)
+		{
+			int ii = 0 ;
+			while (ii<i)
+			{
+				printf("\t") ;
+				ii++ ;
+			}
+		}
 
 		for (int j = 0; j < cities->number-i; j++)
 			printf("%i \t", matrix[i][j]);
