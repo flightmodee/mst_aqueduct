@@ -27,7 +27,7 @@ int edge_valuation(ListOfCities *cities, int pos1, int pos2)
 int **adjacency_matrix_creation(ListOfCities *cities){
 
 	int **matrix;
-	if ((matrix = (int **)malloc(cities->number * sizeof(int *))) == NULL){
+	if ((matrix = (int **)malloc((cities->number-1) * sizeof(int *))) == NULL){
 		perror("Memory allocation failed. Exit.\n");
 		exit(EXIT_FAILURE);
 	}
@@ -36,8 +36,8 @@ int **adjacency_matrix_creation(ListOfCities *cities){
 	//Allocation of each row. However, using the diagonal properties
 	//of an adjacency matrix, we do not need to create an n*n matrix.
 	//We only need n*(n+1)/2 cells to store our valuations.
-	for (i = 0; i < cities->number; i++)
-		if ((matrix[i] = (int *)malloc((cities->number-i)* sizeof(int))) == NULL){
+	for (i = 1; i < cities->number; i++)
+		if ((matrix[i] = (int *)malloc(i* sizeof(int))) == NULL){
 			perror("Memory allocation failed. Exit. \n");
 			exit(EXIT_FAILURE);
 		}
