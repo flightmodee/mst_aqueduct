@@ -35,17 +35,18 @@ int **adjacency_matrix_creation(ListOfCities *cities){
 	int i, j;
 	//Allocation of each row. However, using the diagonal properties
 	//of an adjacency matrix, we do not need to create an n*n matrix.
-	//We only need n*(n+1)/2 cells to store our valuations.
+	//We only need n*(n-1)/2 cells to store our valuations.
 	for (i = 1; i < cities->number; i++)
-		if ((matrix[i] = (int *)malloc(i* sizeof(int))) == NULL){
+		if ((matrix[i-1] = (int *)malloc(i* sizeof(int))) == NULL){
 			perror("Memory allocation failed. Exit. \n");
 			exit(EXIT_FAILURE);
 		}
-	
+
+
 	//Now, we'll fill our matrix.
-	for (i = 0; i < cities->number; i++)
-		for (j = 0; j < i; j++)
-			matrix[i][j] = edge_valuation(cities, i, j) ;
+	for (i = 0; i < cities->number-1; i++)
+		for (j = 0; j <= i; j++)
+			matrix[i][j] = edge_valuation(cities, i+1, j) ;
 
 	return (matrix);
 }
@@ -63,7 +64,7 @@ void display_matrix (ListOfCities* cities, int** matrix)
 		printf("%.5s \t", cities->name[i]);
 
 		for (int j = 0; j < i; j++)
-			printf("%i \t", matrix[i][j]);
+			printf("%i \t", matrix[i-1][j]);
 	}
 	printf("\n\n") ;
 }
@@ -75,36 +76,33 @@ void saveGraph_alt(int **matrix, int dimension){
 	fileOut = fopen("resuGraph.dat", "w");
 
 	for (int i = 0; i < dimension; i++)
-		for (int j = 0; j < i; j++)
+		for (int j = 0; j <= i; j++)
 			if (matrix[i][j] != 0)
-				fprintf(fileOut, "%i %i\n", i, j);
+				fprintf(fileOut, "%i %i\n", i+1, j);
 
 	fclose(fileOut);
 
 }
 
 
-//int **prim(int **matrix){
+
+
+int **prim(int **matrix, int node_number){
 
 	//First step: creating the binary heap.
+	//A complete graph Kn has exactly n*(n-1)/2 edges, so we reserve
+	//that many slots in our binary heap.
+	int size = node_number*(node_number-1)/2;
+	heap_t *heap = heap_create(size);
+
+	//This array will keep track of the nodes already visited.
+	int *visited = (int*)malloc(node_number * sizeof(int));
+
+	//The Prim algorithm starts on a random node. So we'll select a random node_number
+	//between 0 an
 
 
 
 
-/*
-int** prim(int** matrix, int dimension)
-{
-	int** matrix_res = (int **)malloc(cities->number * sizeof(int *)) ; // matrice résultante
-	int* rep[dimension] = {0} ; // les représentants de chaque noeuds sont mis à O (= non visité)
-	heap_t* pq = heap_create(dimension * dimension) ; // priority queue
-
-	int first_node = 0 ;
-	rep[0] = 1 ;
-
-	if ()
-	{
-
-	}
 
 }
-*/
