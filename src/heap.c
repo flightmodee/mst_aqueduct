@@ -105,7 +105,7 @@ void destroy_heap(heap_t * a)
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-int plus_grands_fils(heap_t * T, int pos)
+int plus_petit_fils(heap_t * T, int pos)
 {
   int fils_g = 2*pos+1;
   int fils_d = 2*pos+2;
@@ -114,9 +114,9 @@ int plus_grands_fils(heap_t * T, int pos)
     return T->max;
 
   if (T->tab[fils_g].weight < T->tab[fils_d].weight)
-    return fils_d;
+    return fils_g;
 
-  return fils_g;
+  return fils_d;
 }
 
 
@@ -126,13 +126,13 @@ void entasser_ext(heap_t * T)
     return ;
 
   int pos =0;
-  int fils = plus_grands_fils(T, pos);
+  int fils = plus_petit_fils(T, pos);
 
   while (T->tab[pos].weight < T->tab[fils].weight && fils < T->taille-1)
   {
     echanger(T, pos,fils);
     pos = fils; 
-    fils = plus_grands_fils(T, pos);
+    fils = plus_petit_fils(T, pos);
   }
 }
 

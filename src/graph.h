@@ -56,6 +56,6 @@ void saveGraph_alt(int **matrix, int dimension);
 /** ...
  * @param matrix ... 
  */
-int prim(int** matrix, int dimension) ;
+int** prim(int** matrix, int dimension) ;
 
 #endif

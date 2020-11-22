@@ -105,12 +105,12 @@ void entasser_ext(heap_t * T);
 
 
 /**
- * Fonction qui renvoie la position du plus grand fils
+ * Fonction qui renvoie la position du plus petit fils
  * @param T le tas
  * @param pos la position du noeud
- * @return la position du plus grand fils
+ * @return la position du plus petit fils
  */
-int plus_grands_fils(heap_t * T, int pos);
+int plus_petit_fils(heap_t * T, int pos);
 
 
 #endif

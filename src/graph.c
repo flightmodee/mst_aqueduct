@@ -94,17 +94,19 @@ void saveGraph_alt(int **matrix, int dimension){
 }
 
 /*
-int prim(int** matrix, int dimension)
+int** prim(int** matrix, int dimension)
 {
+	int** matrix_res = (int **)malloc(cities->number * sizeof(int *)) ; // matrice résultante
+	int* rep[dimension] = {0} ; // les représentants de chaque noeuds sont mis à O (= non visité)
+	heap_t* pq = heap_create(dimension * dimension) ; // priority queue
+
 	int first_node = 0 ;
-	int* rep[dimension] = {0} ;
-	tas_t* pq ;
+	rep[0] = 1 ;
 
 	if ()
 	{
 
 	}
 
-	return first_node ;
 }
 */
