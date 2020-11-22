@@ -44,8 +44,8 @@ int **adjacency_matrix_creation(ListOfCities *cities){
 	
 	//Now, we'll fill our matrix.
 	for (i = 0; i < cities->number; i++)
-		for (j = 0; j < cities->number - i; j++)
-			matrix[i][j] = edge_valuation(cities, i, j+i) ;
+		for (j = 0; j < i; j++)
+			matrix[i][j] = edge_valuation(cities, i, j) ;
 
 	return (matrix);
 }
@@ -61,18 +61,8 @@ void display_matrix (ListOfCities* cities, int** matrix)
 	{
 		printf("\n");
 		printf("%.5s \t", cities->name[i]);
-		
-		if (i>0)
-		{
-			int ii = 0 ;
-			while (ii<i)
-			{
-				printf("\t") ;
-				ii++ ;
-			}
-		}
 
-		for (int j = 0; j < cities->number-i; j++)
+		for (int j = 0; j < i; j++)
 			printf("%i \t", matrix[i][j]);
 	}
 	printf("\n\n") ;
@@ -85,13 +75,21 @@ void saveGraph_alt(int **matrix, int dimension){
 	fileOut = fopen("resuGraph.dat", "w");
 
 	for (int i = 0; i < dimension; i++)
-		for (int j = 0; j < dimension - i; j++)
+		for (int j = 0; j < i; j++)
 			if (matrix[i][j] != 0)
-				fprintf(fileOut, "%i %i\n", i, j+i);
+				fprintf(fileOut, "%i %i\n", i, j);
 
 	fclose(fileOut);
 
 }
+
+
+//int **prim(int **matrix){
+
+	//First step: creating the binary heap.
+
+
+
 
 /*
 int** prim(int** matrix, int dimension)
