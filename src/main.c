@@ -43,11 +43,11 @@ int main(int argc, char ** argv)
 	//--- COMPUTING complete graph
 	//-----------------------------------------------------------------
 
-	int **matrix = adjacency_matrix_creation(cities);
+	int **matrix = adjacency_matrix_creation(cities->number);
+	adjacency_matrix_filling(matrix, cities);
 
 	// Displaying the matrix
 	display_matrix (cities, matrix);
-
 
 	/* 
 	Écriture du graphe (chaque ligne correspond à une arête)
@@ -55,6 +55,7 @@ int main(int argc, char ** argv)
 	Dans votre rendu, cette fonction prendra un graphe en argument,
 	pas une liste de villes.
 	*/
+
 	saveGraph_alt(matrix, cities->number);
 	freeListOfCities(cities);
 

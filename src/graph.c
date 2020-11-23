@@ -118,6 +118,21 @@ int **prim(int **matrix, int node_number){
 	//We chose the v node, therefore we set the value of visited[v] to true.
 	visited[v] = 1;
 
+	//Remplissage, pour un sommet v :
+	//First, we fill the row
+	int i, valuation;
+	edge_t *edge;
+	for (i = 0; i < v; i++){
+		valuation = matrix[v][i];
+		edge = edge_create(v+1, i, valuation);
+		inserer_heap(heap, *edge);
+	}
+	//Then, the column
+	for (int j = i; j < node_number-1; j++){
+		valuation = matrix[j][i];
+		edge = edge_create(j+1, i, valuation);
+		inserer_heap(heap, *edge);
+	}
 
 
 
