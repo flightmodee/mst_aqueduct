@@ -23,18 +23,23 @@
 int edge_valuation(ListOfCities *cities, int pos1, int pos2);
 
 
-/**This function will create an adjacency matrix (which will 
- * represent our graph) with the data contained within the argument.
- * Said argument is a ListOfCities structure that contains
- * a precise amount of cities, and for each of the latter its name, population,
- * along with its latitude and longitude.
- * This function will create the matrix and each cell of said matrix will contain 
- * an edge valuation, representing the distance between two cities.
- * @param cities a pointer to a ListOfCities
- * @return the adjacency matrix representing the complete weighted graph of all
- * cities passed as an argument.
+/**This function will create an adjacency matrix (where each cell will be initialized
+ * to 0. It isn't an actual matrix per se, but rather a pointer array. Indeed, adjacency matrixes
+ * suffer from redundancy, which is why we decided to only consider the data stored on top or beneath
+ * the zero diagonal. This allows us to save a lot of memory.
+ * The integer passed as an argument will represent the number of cities considered.
+ * @param cities_number the number of cities considered.
+ * @return an "adjacency matrix" initialized to 0.
  */
-int **adjacency_matrix_creation(ListOfCities *cities);
+int **adjacency_matrix_creation(int cities_number);
+
+
+/**This function fills the matrix passed as an argument with the cities 
+ * passed as an argument.
+ * @param matrix the matrix we want to fill.
+ * @param cities the list of cities we want to store within our matrix.
+ */
+void adjacency_matrix_filling(int **matrix, ListOfCities *cities);
 
 
 /**This function displays the matrix of distance between the chosen cities.
@@ -57,5 +62,10 @@ void saveGraph_alt(int **matrix, int dimension);
  * @param matrix ... 
  */
 int** prim(int** matrix, int dimension) ;
+
+
+
+
+
 
 #endif

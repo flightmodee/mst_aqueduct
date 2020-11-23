@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 #include "citiesReader.h"
 #include "graph.h"
 #include "heap.h"
@@ -24,10 +25,10 @@ int edge_valuation(ListOfCities *cities, int pos1, int pos2)
 }
 
 
-int **adjacency_matrix_creation(ListOfCities *cities){
+int **adjacency_matrix_creation(int cities_number){
 
 	int **matrix;
-	if ((matrix = (int **)malloc((cities->number-1) * sizeof(int *))) == NULL){
+	if ((matrix = (int **)malloc((cities_number-1) * sizeof(int *))) == NULL){
 		perror("Memory allocation failed. Exit.\n");
 		exit(EXIT_FAILURE);
 	}
@@ -36,19 +37,23 @@ int **adjacency_matrix_creation(ListOfCities *cities){
 	//Allocation of each row. However, using the diagonal properties
 	//of an adjacency matrix, we do not need to create an n*n matrix.
 	//We only need n*(n-1)/2 cells to store our valuations.
-	for (i = 1; i < cities->number; i++)
-		if ((matrix[i-1] = (int *)malloc(i* sizeof(int))) == NULL){
+	//We use the calloc function to initialize each memory cell to 0
+	for (i = 1; i < cities_number; i++)
+		if ((matrix[i-1] = (int *)calloc(i, sizeof(int))) == NULL){
 			perror("Memory allocation failed. Exit. \n");
 			exit(EXIT_FAILURE);
 		}
 
+	return (matrix);
+}
 
-	//Now, we'll fill our matrix.
+void adjacency_matrix_filling(int **matrix, ListOfCities *cities){
+
+	int i, j;
+
 	for (i = 0; i < cities->number-1; i++)
 		for (j = 0; j <= i; j++)
-			matrix[i][j] = edge_valuation(cities, i+1, j) ;
-
-	return (matrix);
+			matrix[i][j] = edge_valuation(cities, i+1, j);
 }
 
 
@@ -95,11 +100,23 @@ int **prim(int **matrix, int node_number){
 	int size = node_number*(node_number-1)/2;
 	heap_t *heap = heap_create(size);
 
+	//Here we create the matrix that will contain our final output.
+	int **prim_matrix = adjacency_matrix_creation(node_number);
+
 	//This array will keep track of the nodes already visited.
-	int *visited = (int*)malloc(node_number * sizeof(int));
+	//It basically is a boolean array. if visited[i] is true then it means 
+	//the number i node has already been visited.
+	//The calloc function will set each byte to zero.
+	int *visited = (int*)calloc(node_number, sizeof(int));
+
 
 	//The Prim algorithm starts on a random node. So we'll select a random node_number
-	//between 0 an
+	//between 0 and node_number-1
+	srand(time(NULL));
+	int v = rand()% (node_number - 1);
+
+	//We chose the v node, therefore we set the value of visited[v] to true.
+	visited[v] = 1;
 
 
 
