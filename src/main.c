@@ -55,7 +55,7 @@ int main(int argc, char ** argv)
 	Dans votre rendu, cette fonction prendra un graphe en argument,
 	pas une liste de villes.
 	*/
-	saveGraph_alt(matrix, cities->number-1);
+	saveGraph_alt(matrix, cities->number);
 	freeListOfCities(cities);
 
 	return 0;
