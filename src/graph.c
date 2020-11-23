@@ -75,7 +75,7 @@ void saveGraph_alt(int **matrix, int dimension){
 	FILE *fileOut = NULL;
 	fileOut = fopen("resuGraph.dat", "w");
 
-	for (int i = 0; i < dimension; i++)
+	for (int i = 0; i < dimension-1; i++)
 		for (int j = 0; j <= i; j++)
 			if (matrix[i][j] != 0)
 				fprintf(fileOut, "%i %i\n", i+1, j);
