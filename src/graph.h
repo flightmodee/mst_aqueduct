@@ -1,16 +1,7 @@
-#ifndef __ADJACENCY_MATRIX__
-#define __ADJACENCY_MATRIX__
+#ifndef __GRAPH_
+#define __GRAPH__
 
 #include <stddef.h>
-#include <math.h>
-
-/**Cette librairie contiendra les prototypes des fonctions en rapport avec les matrices d'adjacence.
- * Il ne s'agira ni plus ni moins que d'une matrice n * n, avec n le nombre de sommets d'un graphe.
- * Chaque case de la matrice représentera une valuation, ou distance entre deux villes.
- * Le choix de cette structure de données sera bien évidemment expliqué dans le rapport.
- */
-
-
 
 
 /** This function calculates the valuation of an edge. The latter represents the distance between two cities
@@ -50,18 +41,33 @@ void display_matrix (ListOfCities* cities, int** matrix);
 
 /**This functions writes in a file each pair of vertixes which form an edge in our graph 
  * described by the matrix passed as argument.
- * We also need the dimension of the squared matrix to print everything
+ * We also need the dimension of our matrix to print everything
  * correctly.
  * @param matrix the matrix representing our graph.
  * @param dimension the dimension of our matrix.
  */
 void saveGraph_alt(int **matrix, int dimension);
 
+/**This function will add all of the outgoing edges from the vertex v passed as an argument.
+ * To do so, it will first and foremost check if each edge doesn't point towards an alreay visited node.
+ * If it isn't the case, it adds them to our priority queue. It'll explore the adjacency matrix
+ * in order to retrieve the valuation of each edge, hence the node_number argument used to stay 
+ * within bounds of our matrix.
+ * @param matrix the adjacency matrix of a graph.
+ * @param heap a pointer to a priority queue we want to fill.
+ * @param v the node we're currently visiting and we want the outgoing edges of.
+ * @param node_number the number of nodes of our graph.
+ * @param visited an array keeping track of each vertix that has been visited.
+ */
+void adding_outgoing_edges(int **matrix, heap_t *heap, int v, int node_number, int *visited);
+
 
 /**This is the main function. It processes an MST (minimum spanning tree) from a graphe
  * whose adjacency matrix is passed as an argument, using the Prim algorithm.
+ * It will also store the total cost of the MST in an integer.
  * @param matrix the adjacency matrix of the graph we want to determine an MST of.
- * @node_number the number of nodes in said graph.
+ * @param node_number the number of nodes in said graph.
+ * @param total_cost a pointer to an integer that will store the total cost of the MST.
  * @return the adjacency matrix of the minimum spanning tree.
  */
 int** prim(int** matrix, int node_number, int *total_cost);
