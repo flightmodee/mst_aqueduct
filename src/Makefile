@@ -1,7 +1,7 @@
 CC= gcc
 CXXFLAGS= -Wall -Werror -ansi --pedantic -O3
 
-CPP_O_FILE = citiesReader.o graph.o heap.o main.o
+CPP_O_FILE = citiesReader.o analyzer.o graph.o heap.o main.o
 LIB = -lm
 
 
