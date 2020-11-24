@@ -58,10 +58,13 @@ void display_matrix (ListOfCities* cities, int** matrix);
 void saveGraph_alt(int **matrix, int dimension);
 
 
-/** ...
- * @param matrix ... 
+/**This is the main function. It processes an MST (minimum spanning tree) from a graphe
+ * whose adjacency matrix is passed as an argument, using the Prim algorithm.
+ * @param matrix the adjacency matrix of the graph we want to determine an MST of.
+ * @node_number the number of nodes in said graph.
+ * @return the adjacency matrix of the minimum spanning tree.
  */
-int** prim(int** matrix, int dimension) ;
+int** prim(int** matrix, int node_number, int *total_cost);
 
 
 
