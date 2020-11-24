@@ -128,7 +128,7 @@ void entasser_ext(heap_t * T)
   int pos =0;
   int fils = plus_petit_fils(T, pos);
 
-  while (T->tab[pos].weight < T->tab[fils].weight && fils < T->taille-1)
+  while (T->tab[pos].weight > T->tab[fils].weight && fils < T->taille-1)
   {
     echanger(T, pos,fils);
     pos = fils; 
