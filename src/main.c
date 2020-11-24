@@ -1,6 +1,7 @@
 #include "citiesReader.h"
-#include "graph.h"
 #include "heap.h"
+#include "graph.h"
+
 #include "analyzer.h"
 
 #include <stdlib.h>
