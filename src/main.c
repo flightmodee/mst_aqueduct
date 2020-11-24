@@ -6,9 +6,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 
 int main(int argc, char ** argv)
 {
+
+	srand(time(NULL));
 	if( argc != 2 )
 	{
 		perror("Veuillez passer une population minimale en paramètre du programme\n");
@@ -21,40 +24,27 @@ int main(int argc, char ** argv)
 
 	int popMin = atoi(argv[1]);
 
-/*
-	int popMin ;
 
-	fprintf(stderr,"\nVeuillez entrer un nombre d'habitants minimale\n");
-	fprintf(stderr,"\nExemple : 250000, 100000, 50000, 10000, 1000\nVotre choix : ");
-	scanf ("%d", &popMin);
-	fprintf(stderr, "\n");
-*/
 
 	ListOfCities* cities;
 	cities = citiesReader(popMin);
-
-	// ... just to check! This line can be removed.
-	for(int i=0; i<cities->number; i++)
-		printf("%s %i %f %f\n", cities->name[i], cities->pop[i], cities->lon[i], cities->lat[i]);
-	
-
 
 	//-----------------------------------------------------------------
 	//--- COMPUTING complete graph
 	//-----------------------------------------------------------------
 
 	int **matrix = adjacency_matrix_creation(cities->number);
+	int total_cost = 0;
 	adjacency_matrix_filling(matrix, cities);
 
 	// Displaying the matrix
 	display_matrix (cities, matrix);
+	//Processing an AST for our complete graph.
+	matrix = prim(matrix, cities->number, &total_cost);
 
-	/* 
-	Écriture du graphe (chaque ligne correspond à une arête)
-	!!! Ci-dessous, on écrit le graphe complet pour l'exemple.
-	Dans votre rendu, cette fonction prendra un graphe en argument,
-	pas une liste de villes.
-	*/
+	printf("The length of the optimal network is of %d\n", total_cost);
+
+	//Saving the graph in a text file
 
 	saveGraph_alt(matrix, cities->number);
 	freeListOfCities(cities);
