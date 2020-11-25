@@ -25,6 +25,13 @@ int edge_valuation(ListOfCities *cities, int pos1, int pos2);
 int **adjacency_matrix_creation(int cities_number);
 
 
+/** This function frees a graph.
+ * @param matrix the graph we want to free.
+ * @param node_number the dimension of said graph.
+ */
+void free_matrix(int **matrix, int node_number):
+
+
 /**This function fills the matrix passed as an argument with the cities 
  * passed as an argument.
  * @param matrix the matrix we want to fill.

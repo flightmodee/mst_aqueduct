@@ -47,6 +47,12 @@ int **adjacency_matrix_creation(int cities_number){
 	return (matrix);
 }
 
+void free_matrix(int **matrix, int node_number){
+	for (int i = 0; i < node_number - 1; i++)
+		free(matrix[i]);
+
+	free(matrix);
+}
 
 void adjacency_matrix_filling(int **matrix, ListOfCities *cities){
 
