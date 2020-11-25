@@ -86,3 +86,21 @@ void plot_values(analyzer_t * a){
     printf("%d %lf %Lf\n", i, a->cost[i], get_amortized_cost(a, i));
   }
 }
+
+
+
+// =============================================================================
+
+
+// Cette fonction va stocker le nombre minimal de population choisie,
+// la longueur totale du réseau ainsi que son cout (temps).
+void new_save_values(int popMin, int totalcost, analyzer_t * a, char * path)
+{
+  FILE * f;
+
+  if( (f = fopen(path, "a")) != NULL )
+      fprintf(f, "%d %d %lf\n", popMin, totalcost, a->cost[0]);
+
+  else
+    fprintf(stderr, "Could not save values in file %s", path);
+}

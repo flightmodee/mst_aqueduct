@@ -75,10 +75,12 @@ void display_matrix (ListOfCities* cities, int** matrix)
 
 
 
-void saveGraph_alt(int **matrix, int dimension){
+void saveGraph_alt(int **matrix, int dimension, int popMin){
 
 	FILE *fileOut = NULL;
 	fileOut = fopen("resuGraph.dat", "w");
+	
+	fprintf(fileOut, "%i %i\n", popMin, popMin) ;
 
 	for (int i = 0; i < dimension-1; i++)
 		for (int j = 0; j <= i; j++)

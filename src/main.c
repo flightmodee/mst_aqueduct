@@ -32,18 +32,21 @@ struct timespec diff(struct timespec start, struct timespec end)
 
 int main(int argc, char ** argv)
 {
-
 	srand(time(NULL));
-	if( argc != 2 )
-	{
-		perror("Veuillez passer une population minimale en paramètre du programme\n");
-		return EXIT_FAILURE;
-	}
 
-	int popMin = atoi(argv[1]), total_cost = 0;
+	int popMin, total_cost = 0;
+
+	fprintf(stderr,"\nChoisissez un nombre minimum de population\n");
+	fprintf(stderr,"\n[ Recommendation : 250000, 100000, 50000, 10000, 1 ]\n\n");
+	fprintf(stderr,"\nChoix : ");
+	scanf ("%d", &popMin);
+	fprintf(stderr, "\n");
+
 	ListOfCities* cities = citiesReader(popMin);
+
 	//Here we create an empty adjacency matrix.
 	int **matrix = adjacency_matrix_creation(cities->number);
+
 	//Structure used for benchmark purposes.
 	analyzer_t *time_analysis = analyzer_create();
 	struct timespec before, after, difference;
@@ -57,17 +60,22 @@ int main(int argc, char ** argv)
 	clock_gettime(clk_id, &before);
 	matrix = prim(matrix, cities->number, &total_cost);
 	clock_gettime(clk_id, &after);
-	save_values(time_analysis, "test1.txt");
+
 	difference = diff(before, after);
 	analyzer_append(time_analysis, difference.tv_nsec);
 
+	new_save_values(popMin, total_cost, time_analysis, "resultats/resultat_function_prim.txt") ;
+
+
+
 	//Displaying some information on our benchmarks.
-	fprintf(stderr, "The total cost is %Lf\n", get_average_cost(time_analysis));
-	fprintf(stderr, "The length of the found MST is equal to %d kilometers.\n", total_cost);
+	fprintf(stderr, "The total cost (time) is %Lf\n", get_average_cost(time_analysis));
+	fprintf(stderr, "The length of the found MST is equal to %d kilometers.\n\n", total_cost);
+	fprintf(stderr, " ======================================================================================\n\n");
 
 
 	//Saving the graph in a text file
-	saveGraph_alt(matrix, cities->number);
+	saveGraph_alt(matrix, cities->number, popMin);
 	freeListOfCities(cities);
 
 	return (0);

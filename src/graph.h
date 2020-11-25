@@ -46,7 +46,7 @@ void display_matrix (ListOfCities* cities, int** matrix);
  * @param matrix the matrix representing our graph.
  * @param dimension the dimension of our matrix.
  */
-void saveGraph_alt(int **matrix, int dimension);
+void saveGraph_alt(int **matrix, int dimension, int popMin);
 
 /**This function will add all of the outgoing edges from the vertex v passed as an argument.
  * To do so, it will first and foremost check if each edge doesn't point towards an alreay visited node.

@@ -101,4 +101,19 @@ void save_values(analyzer_t * a, char * path);
 */
 void plot_values(analyzer_t * a);
 
+
+
+// =============================================================================
+
+
+/**
+ * Cette fonction va stocker le nombre minimal de population choisie,
+ * la longueur totale du réseau ainsi que son cout (temps).
+ * @param popMin est la population minimum par ville.
+ * @param totalcost est le coût total (km) du réseau.
+ * @param a est l'analyse que l'on souhaite sauvegarder.
+ * @param path est le chemin du fichier dans lequel la sauvegarde est faite.
+ */
+void new_save_values(int popMin, int totalcost, analyzer_t * a, char * path) ;
+
 #endif 
