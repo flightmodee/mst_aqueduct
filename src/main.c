@@ -63,7 +63,8 @@ int main(int argc, char ** argv)
 	difference = diff(before, after);
 	analyzer_append(time_analysis, difference.tv_nsec);
 
-	//new_save_values(popMin, total_cost, time_analysis, "resultats/resultat_function_prim.txt") ;
+	//We store some information in a text file.
+	new_save_values(popMin, total_cost, time_analysis, "resultats/resultat_function_prim.txt") ;
 
 
 
