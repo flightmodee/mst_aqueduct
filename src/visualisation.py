@@ -16,7 +16,7 @@ min_pop = min_pop[0]
 
 # draw the graph
 graph = loadtxt("resuGraph.dat", dtype=int, skiprows=1)
-#print( "Number of edges : ", graph.shape[0])
+print( "Number of edges in the MST: ", graph.shape[0])
 
 for x in range(graph.shape[0]):
   edge = [graph[x,0], graph[x,1]]
@@ -27,8 +27,7 @@ pyplot.ylabel('Latitude', size=16)
 
 
 # title
-pyplot.title("Prim's Algorithm (min pop = %i)" %min_pop)
-
+pyplot.title("Minimum Spanning Tree of the cities whose population is greater or equal to %i)" %min_pop)
 
 
 
