@@ -36,7 +36,7 @@ int main(int argc, char ** argv)
 
 	int popMin, total_cost = 0;
 
-	fprintf(stderr,"\nChoisissez un nombre minimum de population\n");
+	fprintf(stderr,"\nChoisissez un nombre minimum d'habitants par ville\n");
 	fprintf(stderr,"\n[ Recommendation : 250000, 100000, 50000, 10000, 1000 ]\n\n");
 	fprintf(stderr,"\nChoix : ");
 	scanf ("%d", &popMin);
