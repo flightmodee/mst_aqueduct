@@ -47,6 +47,7 @@ int **adjacency_matrix_creation(int cities_number){
 	return (matrix);
 }
 
+
 void free_matrix(int **matrix, int node_number){
 	for (int i = 0; i < node_number - 1; i++)
 		free(matrix[i]);
@@ -100,20 +101,20 @@ void saveGraph_alt(int **matrix, int dimension, int popMin){
 void adding_outgoing_edges(int **matrix, heap_t *heap, int v, int node_number, int *visited){
 
 		int i, valuation;
-		edge_t *edge;
+		edge_t edge;
 
 		for (i = 0; i < v; i++)
 			if (!visited[i]){
 				valuation = matrix[v-1][i];
 				edge = edge_create(v, i, valuation);
-				inserer_heap(heap, *edge);
+				inserer_heap(heap, edge);
 			}
 
 		for (int j = i; j < node_number-1; j++)
 			if (!visited[j+1]){
 				valuation = matrix[j][i];
 				edge = edge_create(i, j+1, valuation);
-				inserer_heap(heap, *edge);
+				inserer_heap(heap, edge);
 			}
 		visited[v] = 1;
 }
@@ -173,6 +174,8 @@ int **prim(int **matrix, int node_number, int *total_cost){
 		}
 	}
 
+	free(visited);
+	destroy_heap(heap);
 	return (prim_matrix);
 }
 
