@@ -29,7 +29,7 @@ int **adjacency_matrix_creation(int cities_number);
  * @param matrix the graph we want to free.
  * @param node_number the dimension of said graph.
  */
-void free_matrix(int **matrix, int node_number):
+void free_matrix(int **matrix, int node_number);
 
 
 /**This function fills the matrix passed as an argument with the cities 
