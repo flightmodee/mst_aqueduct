@@ -9,13 +9,13 @@
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-edge_t* edge_create(int n1, int n2, int poids)
+edge_t edge_create(int n1, int n2, int poids)
 {
-  edge_t* res = (edge_t*) malloc(sizeof(edge_t)) ;
+  edge_t res;
 
-  res->vertix1 = n1 ;
-  res->vertix2 = n2 ;
-  res->weight = poids ;
+  res.vertix1 = n1 ;
+  res.vertix2 = n2 ;
+  res.weight = poids ;
 
   return res ;
 }
@@ -26,13 +26,13 @@ edge_t* edge_create(int n1, int n2, int poids)
 
 heap_t* heap_create(int max)
 {
-  heap_t* res = (heap_t*) malloc( sizeof(heap_t) );
+  heap_t* res = (heap_t*)malloc(sizeof(heap_t) );
 
-  res->tab = (edge_t*) malloc( sizeof(edge_t) * max );
+  res->tab = (edge_t*) malloc(sizeof(edge_t) * max);
   res->max = max;
   res->taille = 0;
   
-  return res;
+  return (res);
 }
 
 

@@ -35,7 +35,7 @@ typedef struct heap_s
    @param poids Le poids du trajet.
    @return Un pointer vers une arête paramétré.
  */
-edge_t* edge_create(int n1, int n2, int poids);
+edge_t edge_create(int n1, int n2, int poids);
 
 
 /**
