@@ -1,8 +1,7 @@
+#include "analyzer.h"
 #include "citiesReader.h"
 #include "heap.h"
 #include "graph.h"
-
-#include "analyzer.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -36,9 +35,9 @@ int main(int argc, char ** argv)
 
 	int popMin, total_cost = 0;
 
-	fprintf(stderr,"\nChoisissez un nombre minimum d'habitants par ville\n");
-	fprintf(stderr,"\n[ Recommendation : 250000, 100000, 50000, 10000, 1000 ]\n\n");
-	fprintf(stderr,"\nChoix : ");
+	fprintf(stderr,"Enter a minimum population.\n");
+	fprintf(stderr,"\n[Recommendations : 250000, 100000, 50000, 10000, 1000 ]\n\n");
+	fprintf(stderr,"\nYour choice: ");
 	scanf ("%d", &popMin);
 	fprintf(stderr, "\n");
 
@@ -46,7 +45,7 @@ int main(int argc, char ** argv)
 
 	//Here we create an empty adjacency matrix.
 	int **matrix = adjacency_matrix_creation(cities->number);
-
+	int **prim_matrix;
 	//Structure used for benchmark purposes.
 	analyzer_t *time_analysis = analyzer_create();
 	struct timespec before, after, difference;
@@ -56,26 +55,31 @@ int main(int argc, char ** argv)
 	//graph whose nodes are the cities passed as an argument.
 	adjacency_matrix_filling(matrix, cities);
 
-	//display_matrix (cities, matrix);
 	clock_gettime(clk_id, &before);
-	matrix = prim(matrix, cities->number, &total_cost);
+	prim_matrix = prim(matrix, cities->number, &total_cost);
 	clock_gettime(clk_id, &after);
 
+	//We store the time taken by the process of the Prim algorithm.
 	difference = diff(before, after);
 	analyzer_append(time_analysis, difference.tv_nsec);
 
-	new_save_values(popMin, total_cost, time_analysis, "resultats/resultat_function_prim.txt") ;
+	//new_save_values(popMin, total_cost, time_analysis, "resultats/resultat_function_prim.txt") ;
 
 
 
 	//Displaying some information on our benchmarks.
-	fprintf(stderr, "The total cost (time) is %Lf\n", get_average_cost(time_analysis));
+	fprintf(stderr, "The total cost (timewise) to process the MST is equal to %Lf\n", get_average_cost(time_analysis));
 	fprintf(stderr, "The length of the found MST is equal to %d kilometers.\n\n", total_cost);
-	fprintf(stderr, " ======================================================================================\n\n");
+	fprintf(stderr, "======================================================================================\n\n");
 
 
 	//Saving the graph in a text file
-	saveGraph_alt(matrix, cities->number, popMin);
+	saveGraph_alt(prim_matrix, cities->number, popMin);
+
+	fprintf(stderr, "Now that an MST has been processed, please enter python3 visualisation.py to watch it.\n");
+
+	free_matrix(prim_matrix, cities->number);
+	free_matrix(matrix, cities->number);
 	freeListOfCities(cities);
 
 	return (0);
