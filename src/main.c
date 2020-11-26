@@ -23,7 +23,7 @@ struct timespec diff(struct timespec start, struct timespec end)
 	else{
 		temp.tv_sec = end.tv_sec-start.tv_sec;
 		temp.tv_nsec = end.tv_nsec-start.tv_nsec;
-		}
+	}
 
 	return temp;
 }
@@ -44,8 +44,8 @@ int main(int argc, char ** argv)
 	ListOfCities* cities = citiesReader(popMin);
 
 	//Here we create an empty adjacency matrix.
-	int **matrix = adjacency_matrix_creation(cities->number);
-	int **prim_matrix;
+	int **complete_graph = adjacency_matrix_creation(cities->number);
+	int **mst;
 	//Structure used for benchmark purposes.
 	analyzer_t *time_analysis = analyzer_create();
 	struct timespec before, after, difference;
@@ -53,10 +53,10 @@ int main(int argc, char ** argv)
 
 	//Here, we fill our matrix. It'll represent a complete
 	//graph whose nodes are the cities passed as an argument.
-	adjacency_matrix_filling(matrix, cities);
+	adjacency_matrix_filling(complete_graph, cities);
 
 	clock_gettime(clk_id, &before);
-	prim_matrix = prim(matrix, cities->number, &total_cost);
+	mst = kruskal(complete_graph, cities->number, &total_cost);
 	clock_gettime(clk_id, &after);
 
 	//We store the time taken by the process of the Prim algorithm.
@@ -69,18 +69,18 @@ int main(int argc, char ** argv)
 
 
 	//Displaying some information on our benchmarks.
-	fprintf(stderr, "The total cost (timewise) to process the MST is equal to %Lf\n", get_average_cost(time_analysis));
+	fprintf(stderr, "The total cost (timewise) to process the MST is equal to %Lf\n", get_total_cost(time_analysis));
 	fprintf(stderr, "The length of the found MST is equal to %d kilometers.\n\n", total_cost);
 	fprintf(stderr, "======================================================================================\n\n");
 
 
 	//Saving the graph in a text file
-	saveGraph_alt(prim_matrix, cities->number, popMin);
+	saveGraph_alt(mst, cities->number, popMin);
 
 	fprintf(stderr, "Now that an MST has been processed, please enter python3 visualisation.py to watch it.\n");
 
-	free_matrix(prim_matrix, cities->number);
-	free_matrix(matrix, cities->number);
+	free_matrix(mst, cities->number);
+	free(time_analysis);
 	freeListOfCities(cities);
 
 	return (0);
