@@ -98,86 +98,74 @@ void saveGraph_alt(int **matrix, int dimension, int popMin){
 
 }
 
-void adding_outgoing_edges(int **matrix, heap_t *heap, int v, int node_number, int *visited){
 
-		int i, valuation;
-		edge_t edge;
-
-		for (i = 0; i < v; i++)
-			if (!visited[i]){
-				valuation = matrix[v-1][i];
-				edge = edge_create(v, i, valuation);
-				inserer_heap(heap, edge);
-			}
-
-		for (int j = i; j < node_number-1; j++)
-			if (!visited[j+1]){
-				valuation = matrix[j][i];
-				edge = edge_create(i, j+1, valuation);
-				inserer_heap(heap, edge);
-			}
-		visited[v] = 1;
+void union_rep(int * tab, int rep_ville1, int rep_ville2, int taille){
+	int i;
+	for(i=0;i<taille;i++){
+		if (tab[i] == rep_ville2)
+			tab[i] = rep_ville1;
+	}
 }
 
 
 
 
-int **prim(int **matrix, int node_number, int *total_cost){
+int **kruskal(int **matrix, int node_number, int *total_cost){
 
 	//First step: creating the binary heap.
-	int size = node_number*(node_number-1);
+	//A complete graph Kn has exactly n*(n-1)/2 edges, so we reserve
+	//that many slots in our binary heap.
+	int size = node_number*(node_number-1)/2;
+	int i,j,valuation;
 	heap_t *heap = heap_create(size);
 
 	//Here we create the matrix that will contain our final output.
 	int **prim_matrix = adjacency_matrix_creation(node_number);
 
-	//This array will keep track of the nodes already visited.
-	//It basically is a boolean array. if visited[i] is true then it means 
-	//the number i node has already been visited.
-	//The calloc function will set each byte to zero.
-	int *visited = (int*)calloc(node_number, sizeof(int));
+	//création et initialisation de notre tableau des représentant
+	int representant[node_number];
+	for(i = 0; i < node_number; i++)
+		representant[i] = i;
 
-	//The Prim algorithm starts on a random node. So we'll select a random node
-	//between 0 and node_number-1
-	srand(time(NULL));
-	int v = rand()% (node_number);
-
-	//To start things off, we add all of the outgoing edges of 
-	//our v vertix to our priority queue.
-	adding_outgoing_edges(matrix, heap, v, node_number, visited);
-	int edge_number = 0;
-
-
-	//BEGINNING OF THE PROCESS
-
-	//We keep iterating until the priority queue is empty, or
-	//we have formed an MST, as the number of edges within it is equal to
-	//the number of vertices of the original graph minus 1.
-	while (heap->taille != 0 && edge_number != node_number - 1){
-
-		edge_t res = extraire_grande_prio(heap);
-		int node_pointed = res.vertix2;
-
-		//If the node pointed has already been selected, we keep polling.
-		//Otheriwse, we update our output matrix, increment the value of
-		//edge_number and add the weight of the extracted edge to our 
-		//total_cost.
-		if (!(visited[node_pointed])){
-			if (res.vertix1 < res.vertix2)
-				prim_matrix[res.vertix2-1][res.vertix1] = res.weight;
-			else
-				prim_matrix[res.vertix1-1][res.vertix2] = res.weight;
-			edge_number++;
-			*total_cost += res.weight;
-
-			adding_outgoing_edges(matrix, heap, node_pointed, node_number, visited);
+	//Mise en place de notre tas min avec les valeurs de la matrice
+	edge_t edge;
+	for (i = 0; i < node_number-1; i++){
+		for (j = 0; j <= i; j++){
+			valuation = matrix[i][j];
+			edge = edge_create(i+1, j, valuation);
+			inserer_heap(heap, edge);
 		}
 	}
 
-	free(visited);
+	//variable avec laquelle on va travailler
+	edge_t tmp;
+	int edge_number = 0;
+	int ville1, ville2;
+	//tant que nous n'avons pas un seul représantant (1 seul graphe conexxe)
+	while (edge_number != node_number - 1)
+	{
+		//on extrait de notre tas_min
+		tmp = extraire_grande_prio(heap);
+		ville1 = tmp.vertix1;
+		int ville2 = tmp.vertix2;
+
+		//si leurs représentant sont différent on lie les deux arbres
+		if(representant[ville1] != representant[ville2]){
+			//tout les anciennes villes qui avant comme représantant ville2 ont maintenant ville1 comme représentant.
+			union_rep(representant, representant[ville1], representant[ville2], node_number);
+			//on ajoute les valeurs dans notre matrice finale.
+			prim_matrix[ville1-1][ville2] = tmp.weight;
+			edge_number ++;
+			*total_cost += tmp.weight;
+				
+		}
+	}
 	destroy_heap(heap);
-	return (prim_matrix);
+	return prim_matrix;
 }
+
+
+
 
 
 

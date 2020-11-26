@@ -69,6 +69,12 @@ void saveGraph_alt(int **matrix, int dimension, int popMin);
 void adding_outgoing_edges(int **matrix, heap_t *heap, int v, int node_number, int *visited);
 
 
+/**This function will, for each element in our tab argument whose representative is 
+ * equal to the rep_ville1 argument, set its representative to the rep_ville2 argument.
+ */
+void union_rep(int * tab, int rep_ville1, int rep_ville2, int taille);
+
+
 /**This is the main function. It processes an MST (minimum spanning tree) from a graphe
  * whose adjacency matrix is passed as an argument, using the Prim algorithm.
  * It will also store the total cost of the MST in an integer.
@@ -77,7 +83,7 @@ void adding_outgoing_edges(int **matrix, heap_t *heap, int v, int node_number, i
  * @param total_cost a pointer to an integer that will store the total cost of the MST.
  * @return the adjacency matrix of the minimum spanning tree.
  */
-int** prim(int** matrix, int node_number, int *total_cost);
+int** kruskal(int** matrix, int node_number, int *total_cost);
 
 
 
