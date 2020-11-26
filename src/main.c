@@ -64,20 +64,18 @@ int main(int argc, char ** argv)
 	analyzer_append(time_analysis, difference.tv_nsec);
 
 	//We store some information in a text file.
-	new_save_values(popMin, total_cost, time_analysis, "resultats/resultat_function_prim.txt") ;
+	new_save_values(popMin, total_cost, time_analysis, "../resultats/resultat_function_prim.txt") ;
 
 
 
 	//Displaying some information on our benchmarks.
-	fprintf(stderr, "The total cost (timewise) to process the MST is equal to %Lf\n", get_average_cost(time_analysis));
+	fprintf(stderr, "The total cost (timewise) to process the MST is equal to %Lf\n", get_total_cost(time_analysis));
 	fprintf(stderr, "The length of the found MST is equal to %d kilometers.\n\n", total_cost);
 	fprintf(stderr, "======================================================================================\n\n");
 
 
 	//Saving the graph in a text file
 	saveGraph_alt(prim_matrix, cities->number, popMin);
-
-	fprintf(stderr, "Now that an MST has been processed, please enter python3 visualisation.py to watch it.\n");
 
 	free_matrix(prim_matrix, cities->number);
 	free_matrix(matrix, cities->number);
