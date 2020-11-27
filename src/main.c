@@ -77,15 +77,8 @@ int main(int argc, char ** argv)
 	//Saving the graph in a text file
 	saveGraph_alt(mst, cities->number, popMin);
 
-<<<<<<< HEAD
-	free_matrix(prim_matrix, cities->number);
-	free_matrix(matrix, cities->number);
-=======
-	fprintf(stderr, "Now that an MST has been processed, please enter python3 visualisation.py to watch it.\n");
-
 	free_matrix(mst, cities->number);
 	free(time_analysis);
->>>>>>> b5aa82c88240eef2118a0322467c591038938878
 	freeListOfCities(cities);
 
 	return (0);
