@@ -1,12 +1,13 @@
+#include "citiesReader.h"
+#include "disjointsets.h"
+#include "heap.h"
+#include "graph.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
 #include <time.h>
-#include "citiesReader.h"
-#include "heap.h"
-#include "graph.h"
-
 #define M_PI 3.14159265358979323846
 
 
@@ -99,6 +100,67 @@ void saveGraph_alt(int **matrix, int dimension, int popMin){
 }
 
 
+//ALGO UTILISANT LES ENSEMBLES DISJOINTS
+int **kruskal(int **matrix, int node_number, int *total_cost){
+
+	//First step: creating the binary heap.
+	//A complete graph Kn has exactly n*(n-1)/2 edges, so we reserve
+	//that many slots in our binary heap.
+	int size = node_number*(node_number-1)/2;
+	int i,j,valuation;
+	heap_t *heap = heap_create(size);
+
+	//Here we create the matrix that will contain our final output.
+	int **prim_matrix = adjacency_matrix_creation(node_number);
+
+	//création et initialisation de notre tableau des représentant
+	node_t **representative = (node_t **)malloc(node_number * sizeof(node_t*));
+	for(i = 0; i < node_number; i++)
+		representative[i] = make_set();
+
+	//Mise en place de notre tas min avec les valeurs de la matrice
+	edge_t edge;
+	for (i = 0; i < node_number-1; i++){
+		for (j = 0; j <= i; j++){
+			valuation = matrix[i][j];
+			edge = edge_create(i+1, j, valuation);
+			inserer_heap(heap, edge);
+		}
+	}
+
+	//variable avec laquelle on va travailler
+	edge_t tmp;
+	int edge_number = 0;
+	int ville1, ville2;
+	//tant que nous n'avons pas un seul représantant (1 seul graphe conexxe)
+	while (edge_number != node_number - 1)
+	{
+		//on extrait de notre tas_min
+		tmp = extraire_grande_prio(heap);
+		ville1 = tmp.vertix1;
+		int ville2 = tmp.vertix2;
+
+		//si leurs représentant sont différent on lie les deux arbres
+		if (find_set(representative[ville1]) != find_set(representative[ville2])){
+			//tout les anciennes villes qui avant comme représantant ville2 ont maintenant ville1 comme représentant.
+			set_union(representative[ville1], representative[ville2]);
+			//on ajoute les valeurs dans notre matrice finale.
+			prim_matrix[ville1-1][ville2] = tmp.weight;
+			edge_number++;
+			*total_cost += tmp.weight;
+		}
+	}
+
+	for (int i = 0; i < node_number; i++)
+		free(representative[i]);
+
+	free(representative);
+	destroy_heap(heap);
+	return prim_matrix;
+}
+
+//FONCTION ET ALGO DE KADDOUH
+
 void union_rep(int * tab, int rep_ville1, int rep_ville2, int taille){
 	int i;
 	for(i=0;i<taille;i++){
@@ -106,9 +168,6 @@ void union_rep(int * tab, int rep_ville1, int rep_ville2, int taille){
 			tab[i] = rep_ville1;
 	}
 }
-
-
-
 
 int **kruskal(int **matrix, int node_number, int *total_cost){
 
@@ -163,7 +222,6 @@ int **kruskal(int **matrix, int node_number, int *total_cost){
 	destroy_heap(heap);
 	return prim_matrix;
 }
-
 
 
 
