@@ -17,9 +17,6 @@ long double edge_valuation(ListOfCities *cities, int pos1, int pos2)
 	long double lat_b = (long double)cities->lat[pos2], lon_b = (long double)cities->lon[pos2];
 
 	pi = M_PI/180.0;
-	a = 0.5 - cos((lat_b - lat_a)*pi)/2.0 + cos(lat_a*pi) * cos(lat_b*pi) * (1.0 - cos((lon_b - lon_a)*pi))/2.0;
-	if (a == 0)
-		printf("Villes : %s %s, %Lf %Lf, %Lf %Lf\n\n", cities->name[pos1], cities->name[pos2], lat_a, lon_a, lat_b, lon_b);
 	valuation = 12742 * asin(sqrt(a));
 
 	return (valuation);
