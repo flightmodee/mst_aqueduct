@@ -11,7 +11,7 @@
  * @param pos2 the position of a city
  * @return the distance between those two cities
  */
-int edge_valuation(ListOfCities *cities, int pos1, int pos2);
+long double edge_valuation(ListOfCities *cities, int pos1, int pos2);
 
 
 /**This function will create an adjacency matrix (where each cell will be initialized
@@ -22,14 +22,14 @@ int edge_valuation(ListOfCities *cities, int pos1, int pos2);
  * @param cities_number the number of cities considered.
  * @return an "adjacency matrix" initialized to 0.
  */
-int **adjacency_matrix_creation(int cities_number);
+long double **adjacency_matrix_creation(int cities_number);
 
 
 /** This function frees a graph.
  * @param matrix the graph we want to free.
  * @param node_number the dimension of said graph.
  */
-void free_matrix(int **matrix, int node_number);
+void free_matrix(long double **matrix, int node_number);
 
 
 /**This function fills the matrix passed as an argument with the cities 
@@ -37,13 +37,13 @@ void free_matrix(int **matrix, int node_number);
  * @param matrix the matrix we want to fill.
  * @param cities the list of cities we want to store within our matrix.
  */
-void adjacency_matrix_filling(int **matrix, ListOfCities *cities);
+void adjacency_matrix_filling(long double **matrix, ListOfCities *cities);
 
 
 /**This function displays the matrix of distance between the chosen cities.
  * @param cities the cities which are going to be displayed
  */
-void display_matrix (ListOfCities* cities, int** matrix);
+void display_matrix (ListOfCities* cities, long double** matrix);
 
 
 /**This functions writes in a file each pair of vertixes which form an edge in our graph 
@@ -53,7 +53,7 @@ void display_matrix (ListOfCities* cities, int** matrix);
  * @param matrix the matrix representing our graph.
  * @param dimension the dimension of our matrix.
  */
-void saveGraph_alt(int **matrix, int dimension, int popMin);
+void saveGraph_alt(long double **matrix, int dimension, int popMin);
 
 /**This function will add all of the outgoing edges from the vertex v passed as an argument.
  * To do so, it will first and foremost check if each edge doesn't point towards an alreay visited node.
@@ -66,7 +66,7 @@ void saveGraph_alt(int **matrix, int dimension, int popMin);
  * @param node_number the number of nodes of our graph.
  * @param visited an array keeping track of each vertix that has been visited.
  */
-void adding_outgoing_edges(int **matrix, heap_t *heap, int v, int node_number, int *visited);
+void adding_outgoing_edges(long double **matrix, heap_t *heap, int v, int node_number, int *visited);
 
 
 /**This function will, for each element in our tab argument whose representative is 
@@ -83,7 +83,8 @@ void union_rep(int * tab, int rep_ville1, int rep_ville2, int taille);
  * @param total_cost a pointer to an integer that will store the total cost of the MST.
  * @return the adjacency matrix of the minimum spanning tree.
  */
-int** kruskal(int** matrix, int node_number, int *total_cost);
+
+long double** kruskal(long double** matrix, int node_number, long double *total_cost);
 
 
 
