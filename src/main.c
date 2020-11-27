@@ -33,7 +33,8 @@ int main(int argc, char ** argv)
 {
 	srand(time(NULL));
 
-	int popMin, total_cost = 0;
+	int popMin = 0;
+	long double total_cost = 0;
 
 	fprintf(stderr,"Enter a minimum population.\n");
 	fprintf(stderr,"\n[Recommendations : 250000, 100000, 50000, 10000, 1000 ]\n\n");
@@ -43,9 +44,11 @@ int main(int argc, char ** argv)
 
 	ListOfCities* cities = citiesReader(popMin);
 
+	printf("Nombre de villes : %d\n", cities->number);
+
 	//Here we create an empty adjacency matrix.
-	int **complete_graph = adjacency_matrix_creation(cities->number);
-	int **mst;
+	long double **complete_graph = adjacency_matrix_creation(cities->number);
+	long double **mst;
 	//Structure used for benchmark purposes.
 	analyzer_t *time_analysis = analyzer_create();
 	struct timespec before, after, difference;
@@ -70,7 +73,7 @@ int main(int argc, char ** argv)
 
 	//Displaying some information on our benchmarks.
 	fprintf(stderr, "The total cost (timewise) to process the MST is equal to %Lf\n", get_total_cost(time_analysis));
-	fprintf(stderr, "The length of the found MST is equal to %d kilometers.\n\n", total_cost);
+	fprintf(stderr, "The length of the found MST is equal to %Lf kilometers.\n\n", total_cost);
 	fprintf(stderr, "======================================================================================\n\n");
 
 
