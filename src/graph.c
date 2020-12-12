@@ -9,16 +9,19 @@
 #include <time.h>
 
 
+
 float edge_valuation(ListOfCities *cities, int pos1, int pos2)
 {
 	float pi, a, valuation;
 
-	float lat_a = cities->lat[pos1], lon_a = cities->lon[pos1];
-	float lat_b = cities->lat[pos2], lon_b = cities->lon[pos2];
-
+	float lat_a = cities->lat[pos1]/180*M_PI, lon_a = cities->lon[pos1]/180*M_PI;
+	float lat_b = cities->lat[pos2]/180*M_PI, lon_b = cities->lon[pos2]/180*M_PI;
+/*
 	pi = M_PI/180.0;
 	a = 0.5 - cos((lat_b - lat_a)*pi)/2 + cos(lat_a*pi) * cos(lat_b*pi) * (1 - cos((lon_b - lon_a)*pi))/2 ;
 	valuation = 12742 * asin(sqrt(a));
+*/
+	valuation = 6371 * acos( sin(lat_a)*sin(lat_b) + cos(lat_a)*cos(lat_b)*cos(lon_b - lon_a) ) ;
 
 	return (valuation);
 }
@@ -87,6 +90,8 @@ void saveGraph_alt(float **matrix, int dimension, int popMin){
 
 	FILE *fileOut = NULL;
 	fileOut = fopen("resuGraph.dat", "w");
+
+	fprintf(fileOut, "%i %i %i\n", popMin, popMin, popMin);
 
 	for (int i = 0; i < dimension-1; i++)
 		for (int j = 0; j <= i; j++)

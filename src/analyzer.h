@@ -12,9 +12,9 @@ typedef struct analyzer_s{
   double * cost;
   // Coût cumulatif. La case i contient la somme des coûts des i premières opérations.
   // Permet de calculer le coût amorti d'une opération.
-  long double * cumulative_cost;
+  float * cumulative_cost;
   // Carré du coût cumulatif. Sert à calculer la variance. On ne garde que la dernière valeur.
-  long double cumulative_square;
+  float cumulative_square;
   // Capacité de stockage des tableaux
   size_t capacity;
   // Nombre d'éléments dans chaque tableaux.
@@ -51,7 +51,7 @@ void analyzer_append(analyzer_t * a, double cost);
    @param a est une analyse.
    @returns la somme des coûts enregistrés dans cette analyse.
 */
-long double get_total_cost(analyzer_t * a);
+float get_total_cost(analyzer_t * a);
 
 // =============================================================================
 

@@ -9,7 +9,7 @@
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-edge_t edge_create(int n1, int n2, long double poids)
+edge_t edge_create(int n1, int n2, float poids)
 {
   edge_t res;
 

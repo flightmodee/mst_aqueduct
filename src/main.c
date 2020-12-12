@@ -34,10 +34,10 @@ int main(int argc, char ** argv)
 	srand(time(NULL));
 
 	int popMin = 0;
-	long double total_cost = 0;
+	float total_cost = 0;
 
 	fprintf(stderr,"Enter a minimum population.\n");
-	fprintf(stderr,"\n[Recommendations : 250000, 100000, 50000, 10000, 1000 ]\n\n");
+	fprintf(stderr,"\n[ Recommendations : 250000, 100000, 50000, 10000, 1000 ]\n\n");
 	fprintf(stderr,"\nYour choice: ");
 	scanf ("%d", &popMin);
 	fprintf(stderr, "\n");
@@ -47,8 +47,8 @@ int main(int argc, char ** argv)
 	printf("Nombre de villes : %d\n", cities->number);
 
 	//Here we create an empty adjacency matrix.
-	long double **complete_graph = adjacency_matrix_creation(cities->number);
-	long double **mst;
+	float **complete_graph = adjacency_matrix_creation(cities->number);
+	float **mst;
 	//Structure used for benchmark purposes.
 	analyzer_t *time_analysis = analyzer_create();
 	struct timespec before, after, difference;
@@ -67,13 +67,13 @@ int main(int argc, char ** argv)
 	analyzer_append(time_analysis, difference.tv_nsec);
 
 	//We store some information in a text file.
-	new_save_values(popMin, total_cost, time_analysis, "../resultats/resultat_function_prim.txt") ;
+	new_save_values(popMin, total_cost, time_analysis, "../resultats/resultat_function_kruskal.txt") ;
 
 
 
 	//Displaying some information on our benchmarks.
-	fprintf(stderr, "The total cost (timewise) to process the MST is equal to %Lf\n", get_total_cost(time_analysis));
-	fprintf(stderr, "The length of the found MST is equal to %Lf kilometers.\n\n", total_cost);
+	fprintf(stderr, "The total cost (timewise) to process the MST is equal to %f\n", get_total_cost(time_analysis));
+	fprintf(stderr, "The length of the found MST is equal to %f kilometers.\n\n", total_cost);
 	fprintf(stderr, "======================================================================================\n\n");
 
 

@@ -1,12 +1,14 @@
 # Execution:
 #   python visualisation.py
 
-from matplotlib import pyplot
+import matplotlib.pyplot as plt
 from numpy import loadtxt
+
+plt.figure(figsize=(10,8))
 
 # draw the cities
 cities = loadtxt("resuCities.dat", dtype=float, delimiter=" ")
-pyplot.scatter(cities[:,1], cities[:,2], s=cities[:,0]/1000, c=cities[:,0], alpha=0.5)
+plt.scatter(cities[:,1], cities[:,2], s=cities[:,0]/1000, c=cities[:,0], alpha=0.5)
 
 
 # graph's minimum number of population 
@@ -20,24 +22,24 @@ print( "Number of edges in the MST: ", graph.shape[0])
 
 for x in range(graph.shape[0]):
   edge = [graph[x,0], graph[x,1]]
-  pyplot.plot(cities[edge,1], cities[edge,2], 'b')
+  plt.plot(cities[edge,1], cities[edge,2], 'b')
 
-pyplot.xlabel('Longitude', size=16)
-pyplot.ylabel('Latitude', size=16)
+plt.xlabel('Longitude', size=16)
+plt.ylabel('Latitude', size=16)
 
 
 # title
-pyplot.title("Minimum Spanning Tree of the cities whose population is greater or equal to %i)" %min_pop)
+plt.title("Minimum Spanning Tree of the cities whose population is greater or equal to %i" %min_pop)
 
 
 
 
 #   Example of file's name in folder 'resultats' : 'min_pop_250000.png'
-filename = "resultats/min_pop_" + str(min_pop) + ".png"
+filename = "../resultats/min_pop_" + str(min_pop) + ".png"
 
 # save in a PNG file
-pyplot.savefig( filename )
+plt.savefig( filename )
 
 
 # show the result
-pyplot.show()
+plt.show()

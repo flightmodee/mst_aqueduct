@@ -5,7 +5,7 @@ NC='\033[0m' # No Color
 cd src/
 make
 
-echo "${RED} ============================== Algorithme choisi : Prim ============================== ${NC}"
+echo "${RED} ============================== Algorithme choisi : Kruskal ============================== ${NC}"
 
 
 # Compilation et exécution en C:
